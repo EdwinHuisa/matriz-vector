@@ -1,0 +1,68 @@
+#include<iostream>
+#include<stdlib.h>
+#include<cstdlib>
+#include<time.h>
+#include<iomanip>
+using namespace std;
+int main(int argc, char * argv[]){
+	
+	int **M, //matriz multiplicar
+	*K,		// vector
+	*resMult;// vector que guardara el resultado final
+ 	int n=200;
+	float inicio_t, 
+	fin_t, 
+	t;
+	inicio_t=clock();
+	int nDecimales=3;
+	M= new int *[n]; // espacio para el tamaño de la matriz
+	K= new int [n];// espacio para el tamaño del vector
+	
+	M=(int **) malloc(n*sizeof(int *));
+	K=(int *)malloc(n*sizeof(int));
+	resMult=(int *)malloc(n*n*sizeof(int));			
+	//rellenamos la matriz
+	M[0]=new int [n*n];
+	for(unsigned int i=1;i<n;i++){
+		M[i]=(int *)malloc(n*sizeof(int *));
+		M[i]=M[i-1]+n;
+	}
+	// rellenamos la matriz y el vector con datos aleatorios
+	srand(time(0));
+	cout<<"La matriz y el vector generados son:"<<endl;
+	for (unsigned int i=0;i<n;i++){
+	for (unsigned int j=0;j<n;j++){
+		if (j==0) cout<<"[";
+		M[i][j]= rand() % 10;
+		cout << M[i][j];
+		if (j==n-1) cout<<"]";
+		else cout<<" ";
+	}
+	K[i]=rand() % 10;
+	
+	cout << "\t ["<<K[i]<<"]"<<endl;
+	
+	}	
+	cout<<"\n";
+	resMult= new int [n];
+	//calculamos la multiplicacion
+	for(unsigned int i=0;i<n;i++){
+		resMult[i]=0;
+	for(unsigned int j=0;j<n;j++){
+		resMult[i] =+ M[i][j] * K[j];
+	}	
+	}
+	cout << "El resultado obtenido " << endl;
+    for (unsigned int i = 0; i < n; i++) {
+    	
+	cout << resMult[i] << endl;
+    }
+ 	// proceso cuya duracion quieres medir
+	
+	fin_t=clock();
+	t=fin_t - inicio_t;
+	cout<<"El tiempo de ejecucion del proceso es de " << fixed<<setprecision(3)<< t /1000<<"segundos"<<endl;
+ 
+ 
+    return 0;
+	
